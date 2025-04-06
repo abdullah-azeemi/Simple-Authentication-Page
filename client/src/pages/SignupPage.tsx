@@ -3,7 +3,11 @@ import { TextField, Button, Container, Typography, Box, Paper, Grid } from '@mui
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const SignupPage = ({ setIsAuthenticated }) => {
+interface Props {
+  setIsAuthenticated: (value: boolean) => void;
+}
+
+const SignupPage: React.FC<Props> = ({ setIsAuthenticated }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -11,9 +15,9 @@ const SignupPage = ({ setIsAuthenticated }) => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
+
     if (password !== confirmPassword) {
       alert("Passwords don't match!");
       return;
@@ -26,13 +30,16 @@ const SignupPage = ({ setIsAuthenticated }) => {
         email,
         password,
       });
-      
+
       localStorage.setItem('token', response.data.token);
       setIsAuthenticated(true);
       navigate('/home');
-    } catch (error) {
-      console.error('Signup error:', error);
-      alert('Signup failed: ' + (error.response?.data?.message || 'Unknown error'));
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        console.error('Signup error:', error.response?.data?.message);
+      } else {
+        console.error('Unknown error:', error);
+      }
     }
   };
 

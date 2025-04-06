@@ -13,13 +13,17 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Email, Lock, Visibility, VisibilityOff } from '@mui/icons-material';
 import axios from 'axios';
 
-const LoginPage = ({ setIsAuthenticated }) => {
+interface Props {
+  setIsAuthenticated: (value: boolean) => void;
+}
+
+const LoginPage: React.FC<Props> = ({ setIsAuthenticated }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:5000/api/users/login', {

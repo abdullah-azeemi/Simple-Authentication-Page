@@ -18,13 +18,16 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { 
   Person, 
-  Email, 
-  DateRange, 
+  Email,  
   ExitToApp,
   Edit,
 } from '@mui/icons-material';
 
-const HomePage = ({ setIsAuthenticated }) => {
+interface Props {
+  setIsAuthenticated: (value: boolean) => void;
+}
+
+const HomePage: React.FC<Props> = ({ setIsAuthenticated }) => {
   const [userData, setUserData] = useState({
     firstName: 'John',
     lastName: 'Doe',

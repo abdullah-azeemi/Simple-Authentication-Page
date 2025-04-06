@@ -3,9 +3,9 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ThemeProvider } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 import { theme } from './theme';
-import LoginPage from './pages/loginPage';
-import SignupPage from './pages/signupPage';
-import HomePage from './pages/homePage';
+import LoginPage from './pages/LoginPage';
+import SignupPage from './pages/SignupPage';
+import HomePage from './pages/HomePage';
 import { useEffect, useState } from 'react';
 
 function App() {
